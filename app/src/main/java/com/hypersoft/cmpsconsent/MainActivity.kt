@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
          */
 
         ConsentController(this).apply {
-            initConsent("9156F00E3949139D3B272AF4D0173CF9",object: ConsentCallback {
+            initConsent("9156F00E3949139D3B272AF4D0173CF9", object : ConsentCallback {
                 override fun onAdsLoad(canRequestAd: Boolean) {
                     super.onAdsLoad(canRequestAd)
                 }
