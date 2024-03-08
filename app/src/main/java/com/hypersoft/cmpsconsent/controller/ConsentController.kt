@@ -20,7 +20,7 @@ class ConsentController(private val activity: Activity) {
 
     fun initConsent(
         @Debug("Device Id is only use for DEBUG") deviceId: String,
-        callback: ConsentCallback
+        callback: ConsentCallback?
     ) {
         this.consentCallback = callback
 
