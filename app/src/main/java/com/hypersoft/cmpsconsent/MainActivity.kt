@@ -9,6 +9,13 @@ import com.google.android.ump.UserMessagingPlatform
 import com.hypersoft.cmpsconsent.callbacks.ConsentCallback
 import com.hypersoft.cmpsconsent.controller.ConsentController
 
+/**
+ * @Author: Muhammad Yaqoob
+ * @Date: 29,March,2024.
+ * @Accounts
+ *      -> https://github.com/orbitalsonic
+ *      -> https://www.linkedin.com/in/myaqoob7
+ */
 class MainActivity : AppCompatActivity() {
 
     lateinit var btnPrivacyPolicy: Button
