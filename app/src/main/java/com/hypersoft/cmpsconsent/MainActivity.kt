@@ -16,49 +16,62 @@ import com.hypersoft.cmpsconsent.controller.ConsentController
  *      -> https://github.com/orbitalsonic
  *      -> https://www.linkedin.com/in/myaqoob7
  */
+
 class MainActivity : AppCompatActivity() {
 
-    lateinit var btnPrivacyPolicy: Button
+    private lateinit var btnPrivacyPolicy: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        initViews()
+        initConsentSdk()
+
+
+        btnPrivacyPolicy.setOnClickListener { onPrivacyClick() }
+    }
+
+    private fun initViews() {
         btnPrivacyPolicy = findViewById(R.id.btn_privacy_policy)
+    }
 
-        btnPrivacyPolicy.setOnClickListener {
-            UserMessagingPlatform.showPrivacyOptionsForm(this) { formError ->
-                formError?.let {
-                    Log.d("consentFormTAG", "showPrivacyOptionsForm, ${formError.message}")
-                    Toast.makeText(this, "Operation failed, Try later", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
-        /**
-         * Search "addTestDeviceHashedId" in logcat after running the application
-         * and past that device id for debug
-         */
-
+    /**
+     * Search "addTestDeviceHashedId" in logcat after running the application
+     * and past that device id for debug
+     */
+    private fun initConsentSdk() {
         ConsentController(this).apply {
             initConsent("9156F00E3949139D3B272AF4D0173CF9", object : ConsentCallback {
                 override fun onAdsLoad(canRequestAd: Boolean) {
-                    super.onAdsLoad(canRequestAd)
+                    Log.d(TAG, "initConsentSdk: onAdsLoad: canRequestAd:$canRequestAd")
                 }
 
                 override fun onConsentFormShow() {
-                    super.onConsentFormShow()
+                    Log.d(TAG, "initConsentSdk: onConsentFormShow")
                 }
 
                 override fun onConsentFormDismissed() {
-                    super.onConsentFormDismissed()
+                    Log.d(TAG, "initConsentSdk: onConsentFormDismissed")
                 }
 
                 override fun onPolicyStatus(required: Boolean) {
-                    super.onPolicyStatus(required)
+                    Log.d(TAG, "initConsentSdk: onPolicyStatus: required:$required")
                 }
             })
         }
+    }
 
+    private fun onPrivacyClick() {
+        UserMessagingPlatform.showPrivacyOptionsForm(this) { formError ->
+            formError?.let {
+                Log.e(TAG, "onPrivacyClick: showPrivacyOptionsForm: ${formError.message}")
+                Toast.makeText(this, "Operation failed, Try later", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    companion object {
+        const val TAG = "MainActivity"
     }
 }
