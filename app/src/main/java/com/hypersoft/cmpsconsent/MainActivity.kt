@@ -26,8 +26,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initViews()
-        initConsentSdk()
-
+        initConsent()
 
         btnPrivacyPolicy.setOnClickListener { onPrivacyClick() }
     }
@@ -40,23 +39,24 @@ class MainActivity : AppCompatActivity() {
      * Search "addTestDeviceHashedId" in logcat after running the application
      * and past that device id for debug
      */
-    private fun initConsentSdk() {
+    private fun initConsent() {
         ConsentController(this).apply {
-            initConsent("9156F00E3949139D3B272AF4D0173CF9", object : ConsentCallback {
+            initConsent("A69AF72EA9855046AD0439E4A6287ADF", object : ConsentCallback {
                 override fun onAdsLoad(canRequestAd: Boolean) {
-                    Log.d(TAG, "initConsentSdk: onAdsLoad: canRequestAd:$canRequestAd")
+                    Log.d(TAG, "initConsent: onAdsLoad: canRequestAd:$canRequestAd")
                 }
 
-                override fun onConsentFormShow() {
-                    Log.d(TAG, "initConsentSdk: onConsentFormShow")
+                override fun onConsentFormLoaded() {
+                    Log.d(TAG, "onConsentFormLoaded: called")
+                    this@apply.showConsentForm()
                 }
 
                 override fun onConsentFormDismissed() {
-                    Log.d(TAG, "initConsentSdk: onConsentFormDismissed")
+                    Log.d(TAG, "onConsentFormDismissed: called")
                 }
 
                 override fun onPolicyStatus(required: Boolean) {
-                    Log.d(TAG, "initConsentSdk: onPolicyStatus: required:$required")
+                    Log.d(TAG, "onPolicyStatus: required:$required")
                 }
             })
         }
